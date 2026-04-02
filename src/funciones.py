@@ -73,4 +73,21 @@ def min_playtime(playlist):
             min_playtime = duration
             min_song = song
     return min_song
-        
+
+
+def filter_spoilers(review): 
+    spoilers = input("Ingrese las palabras spoiler (separadas por coma): ")
+    spoiler_list = [spoiler.strip() for spoiler in spoilers.split(",")]
+    review_upper = review.upper()  # hacemos una versión en mayúsculas
+    for word in spoiler_list:
+        word_upper = word.upper()
+        if word_upper in review_upper:
+            start = 0
+            while True:
+                index = review_upper.find(word_upper, start)
+                if index == -1:
+                    break
+                review = review[:index] + "*" * len(word) + review[index + len(word):]
+                review_upper = review.upper()  # actualizamos para que coincida
+                start = index + len(word)
+    return review
