@@ -91,3 +91,27 @@ def filter_spoilers(review):
                 review_upper = review.upper()  # actualizamos para que coincida
                 start = index + len(word)
     return review
+
+import re # Importo la funcion re, para analizar de manera mas sencilla patrones de strings.
+
+
+def validate_email(email):
+    valid = True
+    while valid:
+        if "@" not in email:
+            valid = False
+        if email.startswith("@"):
+            valid = False
+        if not re.search(r"@.+\.", email):   # Verifica que haya un punto luego del arroba.
+            valid = False
+        if email.endswith("@"):
+            valid = False
+        if email.startswith("."):
+            valid = False
+        if email.endswith("."):
+            valid = False
+        dominio = email.split(".")[-1]
+        if len(dominio) < 2:
+            valid = False
+        break;
+    return valid
