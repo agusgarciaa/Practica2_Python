@@ -152,3 +152,28 @@ def calculate_cost(weight, zone):
     else:
         return "Peso no válido."
     return value
+
+
+def all_hashtags(posts):
+    hashtags = {}
+    
+    for post in posts:
+        words = post.split()
+        
+        for word in words:
+            if word.startswith("#"):
+
+                if word in hashtags:
+                    hashtags[word] += 1
+                else:
+                    hashtags[word] = 1
+    return hashtags
+
+
+def trending_hashtags(hashtags):
+    in_order = sorted(hashtags.items(), key=lambda x: x[1], reverse=True)
+    print(" Hashtags trending (más de una aparición): ")
+    for tag, cant in in_order:
+        if cant > 1:
+            print(f"{tag}: {cant}")
+    return
