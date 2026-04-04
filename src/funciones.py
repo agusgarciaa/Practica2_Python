@@ -184,7 +184,7 @@ def cipher(positions, message):
 
     for letter in message:
         if letter.isalpha():
-            new = chr(ord(letter) + positions) nueva = chr((ord(letra) - ord('a') + 4) % 26 + ord('a'))   #ord() convierte una letra a número y chr() viceversa
+            new = chr(ord(letter) + positions) #ord() convierte una letra a número y chr() viceversa
             encrypted += new
         else:
             new = letter
@@ -203,3 +203,60 @@ def decipher(positions, encrypted):
             new = letter
             message += new
     return message
+
+
+def clean_name(name):
+    if not name or name.strip() == "":
+        return None
+    return name.strip().title()
+
+
+def clean_grade(grade):
+    if grade and grade.isdigit():
+        return int(grade)
+    else:
+        return None
+
+
+def clean_status(status):
+    if not status:
+        return None
+    return status.strip().title()
+
+
+def clean_everything(students):
+    new_students = []
+
+    for student in students:
+        name = clean_name(student["name"])
+        grade = clean_grade(student["grade"])
+        status = clean_status(student["status"])
+
+        if name:
+            if grade:
+                new_students.append({
+                    "name": name,
+                    "grade": grade,
+                    "status": status
+                })
+    return new_students
+
+
+def no_more_duplicates(students):
+    uniques = {}
+
+    for student in students:
+        name = student["name"]
+        grade = student["grade"]
+
+        if name not in uniques:
+            uniques[name] = student
+        else:
+            current = grade
+            existing = uniques[name]["grade"]
+
+            if current is not None:
+                if existing is None or current > existing:
+                    uniques[name] = student
+
+    return list(uniques.values())
