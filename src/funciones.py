@@ -172,8 +172,34 @@ def all_hashtags(posts):
 
 def trending_hashtags(hashtags):
     in_order = sorted(hashtags.items(), key=lambda x: x[1], reverse=True)
-    print(" Hashtags trending (más de una aparición): ")
+    print("Hashtags trending (más de una aparición): ")
     for tag, cant in in_order:
         if cant > 1:
             print(f"{tag}: {cant}")
     return
+
+
+def cipher(positions, message):
+    encrypted = ""
+
+    for letter in message:
+        if letter.isalpha():
+            new = chr(ord(letter) + positions) nueva = chr((ord(letra) - ord('a') + 4) % 26 + ord('a'))   #ord() convierte una letra a número y chr() viceversa
+            encrypted += new
+        else:
+            new = letter
+            encrypted += new
+    return encrypted
+
+
+def decipher(positions, encrypted):
+    message = ""
+
+    for letter in encrypted:
+        if letter.isalpha():
+            new = chr(ord(letter) - positions)
+            message += new
+        else:
+            new = letter
+            message += new
+    return message
