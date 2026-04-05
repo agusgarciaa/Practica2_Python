@@ -260,3 +260,67 @@ def no_more_duplicates(students):
                     uniques[name] = student
 
     return list(uniques.values())
+
+    
+def total_scores(totals, participant, score):
+    if participant not in totals:
+        totals[participant] = score
+    else:
+        totals[participant] += score
+    return totals
+
+
+def update_winners(wins, winner):
+    if winner not in wins:
+        wins[winner] = 1
+    else:
+        wins[winner] += 1
+    return wins
+
+
+def check_round(rounds):
+    i = 1
+    wins = {}
+    totals = {}
+    best = {}
+    
+    for round_data in rounds:
+        print(f"\nRonda {i} - {round_data["theme"]}")
+        round_scores = {}
+        
+        for participant, scores in round_data["scores"].items():
+            total = sum(scores.values())
+            round_scores[participant] = total
+            
+            if participant not in best:
+                best[participant] = total
+            else:
+                if best[participant] < total:
+                    best[participant] = total
+                    
+            totals = total_scores(totals, participant, total)
+            
+        ranking = sorted(round_scores.items(), key=lambda x: x[1], reverse=True)
+        winner, score_winner = ranking[0]
+        wins = update_winners(wins,winner)
+        print(f"Ganador: {winner} ({score_winner} pts.)")
+        
+        for participant, score in ranking[1:]:
+            print(f"{participant}: {score} pts")    
+        i += 1
+    return wins, totals, best
+        
+
+def show_final_table(wins, totals, best, rounds):
+    print("------------------------------"*3 + "\nTabla de posiciones final: \nCocinero       | Puntaje      | Rondas Ganadas  | Mejor Ronda  | Promedio")
+    print("------------------------------"*3)
+    final_scores = sorted(totals.items(), key=lambda x: x[1], reverse=True)
+    
+    for participant, score in final_scores:
+        average = (score/rounds)
+        print(f"{participant}      | {score}    | {wins.get(participant, 0)}    | {best[participant]}    | {average}")
+
+    print("------------------------------"*3)
+    return
+        
+        
