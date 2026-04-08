@@ -13,7 +13,7 @@ git clone (url-del-repo)
 
 cd practica2-python
 
-2. Crear un entorno virtual (Opcional):
+2. Crear un entorno virtual (Recomendado):
 python -m venv venv
 Activar entorno:
 
@@ -30,7 +30,7 @@ Activar entorno:
 - Ejecución
 1. Abrir Jupyter Notebook con el comando:
 
-jupyter notebook (Si no se abre verificar que este correctamente instalado en el PATH)
+jupyter notebook (Si no se abre verificar que este correctamente instalado en el PATH o probar python -m notebook)
 
 3. Ir a la carpeta `notebooks/`
 
