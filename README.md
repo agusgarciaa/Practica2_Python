@@ -18,7 +18,7 @@ python -m venv venv
 Activar entorno:
 
     En Windows:
-        venv\Scripts\activate
+        venv/Scripts/activate
    
     En Linux/Mac:
         source venv/bin/activate
